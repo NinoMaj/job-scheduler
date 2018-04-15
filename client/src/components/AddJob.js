@@ -11,7 +11,7 @@ const Container = styled.div`
   width: 355px;
   padding: 20px 20px 0;
 
-  @media (max-width: 500px) {
+  @media (max-widthcolors: 500px) {
     width: 296px;
     padding: 20px 2px 0;
   }

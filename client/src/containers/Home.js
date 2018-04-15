@@ -27,7 +27,7 @@ class Home extends React.Component {
   componentDidUpdate() {
     // Show notification if there is a new error
     if (this.props.jobsErrors && this.props.jobsErrors.length) {
-      this.props.showNotification({ message: this.props.jobsErrors[0].msg });
+      this.props.showNotification({ message: this.props.jobsErrors[0] });
       this.props.removeErrors();
     }
 
@@ -78,7 +78,7 @@ Home.propTypes = {
   jobLoading: PropTypes.bool,
   jobs: PropTypes.arrayOf(PropTypes.object),
   getJobs: PropTypes.func.isRequired,
-  jobsErrors: PropTypes.arrayOf(PropTypes.object),
+  jobsErrors: PropTypes.arrayOf(PropTypes.string),
   addJob: PropTypes.func.isRequired,
   deleteJob: PropTypes.func.isRequired,
   showNotification: PropTypes.func.isRequired,

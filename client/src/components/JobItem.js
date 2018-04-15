@@ -31,7 +31,7 @@ const JobItemCell = styled.div`
     content: '';
     width: 7px;
     height: 50px;
-    background: linear-gradient(90deg, transparent, #FFFFFF);;
+    background: linear-gradient(90deg, transparent, colors.TABLE_BACKGROUND);;
   }
 
   @media (max-width: 768px) {

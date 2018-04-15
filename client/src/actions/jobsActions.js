@@ -29,7 +29,7 @@ export const getJobs = () => async (dispatch) => {
 
     dispatch(getJobsSuccess(res.data));
   } catch (e) {
-    const errorMsg = (e.response && e.response.data) ? e.response.data : 'Error occuered.';
+    const errorMsg = 'Error while fetching jobs.';
     dispatch(jobsFailure(errorMsg));
   }
 };
@@ -49,7 +49,7 @@ export const addJob = job => async (dispatch) => {
     dispatch(addJobSuccess(res.data));
     dispatch(showNotification({ message: 'New job has been added.' }));
   } catch (e) {
-    const errorMsg = (e.response && e.response.data) ? e.response.data : 'Error occuered.';
+    const errorMsg = 'Error while adding job.';
     dispatch(jobsFailure(errorMsg));
   }
 };
@@ -68,7 +68,7 @@ export const deleteJob = jobId => async (dispatch) => {
     dispatch(deleteJobSuccess(res.data));
     dispatch(showNotification({ message: 'The job has been removed.' }));
   } catch (e) {
-    const errorMsg = (e.response && e.response.data) ? e.response.data : 'Error occuered.';
+    const errorMsg = 'Error while deleting job.';
     dispatch(jobsFailure(errorMsg));
   }
 };
