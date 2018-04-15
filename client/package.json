@@ -1,0 +1,41 @@
+{
+  "name": "infobip-app-client",
+  "version": "1.0.0",
+  "private": true,
+  "devDependencies": {
+    "cross-env": "5.1.4",
+    "enzyme": "3.3.0",
+    "enzyme-adapter-react-16": "1.1.1",
+    "react-scripts": "1.1.4"
+  },
+  "dependencies": {
+    "@material-ui/icons": "1.0.0-beta.42",
+    "axios": "0.18.0",
+    "history": "4.7.2",
+    "marked": "^0.3.6",
+    "material-ui": "1.0.0-beta.41",
+    "moment": "2.22.0",
+    "prop-types": "15.6.1",
+    "react": "16.3.1",
+    "react-datepicker": "1.4.1",
+    "react-dom": "16.3.1",
+    "react-redux": "^5.0.7",
+    "react-router": "4.2.0",
+    "react-router-dom": "4.2.2",
+    "react-router-redux": "5.0.0-alpha.9",
+    "react-tap-event-plugin": "3.0.2",
+    "redux": "3.7.2",
+    "redux-devtools-extension": "2.13.2",
+    "redux-logger": "3.0.6",
+    "redux-thunk": "2.2.0",
+    "styled-components": "3.2.5",
+    "superagent": "^3.8.2",
+    "superagent-promise": "^1.1.0"
+  },
+  "scripts": {
+    "start": "cross-env PORT=4100 react-scripts start",
+    "build": "react-scripts build",
+    "test": "cross-env PORT=4100 react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}
