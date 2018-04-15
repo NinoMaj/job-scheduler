@@ -16,7 +16,8 @@
     "test:client": "cd client && npm test",
     "test:server": "cd server && npm test",
     "test": "npm-run-all --parallel test:*",
-    "deploy": "now --public"
+    "deploy": "now --public",
+    "postinstall": "npm install --prefix server --prefix server"
   },
   "dependencies": {
     "npm-run-all": "4.1.1"
