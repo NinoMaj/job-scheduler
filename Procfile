@@ -1,1 +1,1 @@
-web: npm start -- --port $PORT --prefix server --prefix client
+web: npm start -- --port $PORT
