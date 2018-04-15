@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "node server/build/bundle.js",
+    "start": "npm run prod",
     "dev:start-client": "cd client && npm start",
     "dev:build-server": "cd server && webpack --config webpack.server.js --watch",
     "dev:start-server": "nodemon --watch build --exec \"\"node server build/bundle.js\"\" ",
