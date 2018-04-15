@@ -17,8 +17,7 @@
     "test:server": "cd server && npm test",
     "test": "npm-run-all --parallel test:*",
     "deploy:now": "now --public",
-    "deploy:heroku": "cd client && npm run build && git push heroku master",
-    "postinstall": "npm install --prefix server"
+    "deploy:heroku": "cd client && npm run build && git push heroku master"
   },
   "dependencies": {
     "npm-run-all": "4.1.1"
