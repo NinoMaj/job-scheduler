@@ -5,8 +5,6 @@ import { showNotification } from './uiActions';
 
 const LOCALHOST = process.env.NODE_ENV === 'development' ? 'http://localhost:3001' : '';
 
-console.log('LOCAL', LOCALHOST)
-
 export const JOBS_REQUEST = 'JOBS_REQUEST';
 export const GET_JOBS_SUCCESS = 'GET_JOBS_SUCCESS';
 export const ADD_JOB_SUCCESS = 'ADD_JOB_SUCCESS';
