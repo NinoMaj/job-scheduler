@@ -15,7 +15,7 @@ const ShowNextBgColor = styled.div`
   width: 30px;
   height: 30px;
   border: 2px solid black;
-  background: ${props => (props.isGradientBackground) ? '#CCCCCC' : 'linear-gradient(90deg, #6D78FF, #00FFB8)'};
+  background: ${props => (props.isGradientBackground) ? '#CCCCCC' : 'linear-gradient(90deg, #6E77FC, #01FDB9)'};
   opacity: ${props => (props.isGradientBackground) ? '0.9' : '0.6'};
 
   &:hover {

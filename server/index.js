@@ -16,7 +16,6 @@ const { API_ROOT, JOBS_API } = require('./constants/api');
 require('dotenv').config();
 
 // DB Setup
-
 mongoose.connect(process.env.MONGODB_URI, {
   useMongoClient: true,
   promiseLibrary: global.Promise,
@@ -35,7 +34,6 @@ app.use(cors(corsOptions));
 
 // Router handlers
 app.use(API_ROOT + JOBS_API, jobsRouter);
-
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '..', 'client', 'build', 'index.html'));
 });

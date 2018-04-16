@@ -14,10 +14,12 @@ class Home extends React.Component {
     super(props);
     this.state = {
       isDialogOpen: false,
+      sortByDateAsc: 'unsorted',
     };
 
     this.handleClickOpen = this.handleClickOpen.bind(this);
     this.handleClose = this.handleClose.bind(this);
+    this.handleSortByDate = this.handleSortByDate.bind(this);
   }
 
   componentDidMount() {
@@ -32,6 +34,32 @@ class Home extends React.Component {
     }
 
     return true;
+  }
+
+  handleSortByDate() {
+    if (this.state.sortByDateAsc === 'unsorted') {
+      this.setState({sortByDateAsc: true});
+      this.props.showNotification({
+        message: 'Jobs are now sorted by date, click again to sort them descending.',
+        duration: 8000,
+      });
+
+      return;
+    }
+    
+    this.setState({sortByDateAsc: !this.state.sortByDateAsc});
+  }
+
+  sortJobs(jobs) {
+    if (this.state.sortByDateAsc === 'unsorted') {
+      return jobs;
+    }
+
+    if (this.state.sortByDateAsc) {
+      return jobs.sort((a, b) => new Date(a.date) - new Date(b.date));
+    } 
+
+    return jobs.sort((a, b) => new Date(b.date) - new Date(a.date));
   }
 
   handleClickOpen() {
@@ -57,9 +85,11 @@ class Home extends React.Component {
           />
         </Dialog>
         <Table
-          jobs={this.props.jobs}
+          jobs={this.sortJobs(this.props.jobs)}
           deleteJob={this.props.deleteJob}
           handleClickOpen={this.handleClickOpen}
+          handleSortByDate={this.handleSortByDate}
+          sortByDateAsc={this.state.sortByDateAsc}
         />
         <Loading loading={this.props.jobLoading} />
       </div>

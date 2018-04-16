@@ -13,7 +13,7 @@
 
 This is Schedule Jobs app that allows users to add, remove and preview scheduled messages on slack channel.  
 App can be found here [https://shrouded-ocean-55728.herokuapp.com/](https://shrouded-ocean-55728.herokuapp.com/)  
-Join slack workspace js-js-bot.slack.com to see jobs scheduled from the app.  
+Join slack workspace [js-js-bot.slack.com](js-js-bot.slack.com) to see jobs scheduled from the app.  
 Note: App is hosted on free heroku virtual machine that can be affected by cold start problem.  
 
 ## Todo
@@ -49,7 +49,7 @@ Open [http://localhost:4100](http://localhost:4100) to view it in the browser.
 ### `npm run prod`
 
 Builds the app for production to the `build` folder.<br>
-Server is started on [http://localhost:3001](http://localhost:3001) and it will server built client app.<br>
+Server is started on [http://localhost:3001](http://localhost:3001) and it will serve built client app. Open [http://localhost:3001](http://localhost:3001) in your browser to see the app.<br>
 
 ### `npm test` / `yarn test`
 
@@ -58,6 +58,6 @@ Launches the test runner in the interactive watch mode.<br>
 
 ## Env setup
 
-To run app locally in root folder create .env file with tokens for MONGODB_URI and SLACK_WEBHOOK_URL keys.
+To run app locally in root folder create .env file with URLs for MONGODB_URI and SLACK_WEBHOOK_URL keys.
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).

@@ -103,7 +103,6 @@ var _require = __webpack_require__(15),
 __webpack_require__(16).config();
 
 // DB Setup
-
 mongoose.connect(process.env.MONGODB_URI, {
   useMongoClient: true,
   promiseLibrary: global.Promise
@@ -122,7 +121,6 @@ app.use(cors(corsOptions));
 
 // Router handlers
 app.use(API_ROOT + JOBS_API, jobsRouter);
-
 app.get('*', function (req, res) {
   res.sendFile(path.join(__dirname, '..', 'client', 'build', 'index.html'));
 });

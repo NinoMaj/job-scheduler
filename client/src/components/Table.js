@@ -5,6 +5,8 @@ import Button from 'material-ui/Button';
 import AddIcon from '@material-ui/icons/Add';
 
 import JobItem from '../components/JobItem';
+import DateIcon from '../components/DateIcon';
+import ArrowIcon from '../components/ArrowIcon';
 
 const Main = styled.section`
   width: 1000px;
@@ -16,9 +18,10 @@ const Main = styled.section`
   }
 `;
 
-const ButtonContainer = styled.div`
+const ButtonsContainer = styled.div`
   display: flex;
   justify-content: flex-end;
+  align-items: center;
 `;
 
 const TabelContainer = styled.div`
@@ -92,17 +95,45 @@ const TableColumnAction = styled.div`
   }
 `;
 
-const Table = ({ jobs, deleteJob, handleClickOpen }) => (
+const IconButton = styled.div`
+  margin-right: 20px;
+`;
+
+const ArrowIconContainer = styled.div`
+  display: flex;
+  align-items: center;
+  height: 100%;
+  margin-top: 1px;
+  margin-left: 4px;
+  transform: ${props => (props.asc) ? 'rotate(0)' : 'rotate(180deg)'};
+`;
+
+
+const Table = ({ jobs, deleteJob, handleClickOpen, handleSortByDate, sortByDateAsc }) => (
   <Main>
-    <ButtonContainer>
+    <ButtonsContainer>
+      <IconButton>
+        <Button onClick={handleSortByDate}>
+          <DateIcon />
+        </Button>
+      </IconButton>
       <Button variant="fab" color="secondary" aria-label="add" onClick={handleClickOpen}>
         <AddIcon />
       </Button>
-    </ButtonContainer>
+    </ButtonsContainer>
     <TabelContainer>
       <TableHead >
         <TableColumn>Message</TableColumn>
-        <TableColumn>Date</TableColumn>
+        <TableColumn>
+          Date
+          {sortByDateAsc !== 'unsorted' ? (
+            <ArrowIconContainer asc={sortByDateAsc}>
+              <ArrowIcon />
+            </ArrowIconContainer>
+          ) : (
+            null
+          )}
+        </TableColumn>
         <TableColumnChannel>Channel</TableColumnChannel>
         <TableColumnStatus><StatusText>Status</StatusText></TableColumnStatus>
         <TableColumnAction />
@@ -127,6 +158,11 @@ Table.propTypes = {
   jobs: PropTypes.arrayOf(PropTypes.object),
   deleteJob: PropTypes.func.isRequired,
   handleClickOpen: PropTypes.func.isRequired,
+  sortByDateAsc: PropTypes.oneOfType([
+    PropTypes.bool,
+    PropTypes.string,
+  ]).isRequired,
+  handleSortByDate: PropTypes.func.isRequired,
 };
 
 Table.defaultProps = {
