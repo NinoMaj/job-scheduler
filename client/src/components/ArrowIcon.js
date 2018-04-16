@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import SvgIcon from 'material-ui/SvgIcon';
 
 const ArrowIcon = (props) => (
@@ -10,13 +9,5 @@ const ArrowIcon = (props) => (
     </svg>
   </SvgIcon>
 );
-
-ArrowIcon.propTypes = {
-  props: PropTypes.object,
-};
-
-ArrowIcon.defaultProps = {
-  props: {},
-};
 
 export default ArrowIcon;
