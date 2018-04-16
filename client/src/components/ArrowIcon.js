@@ -12,7 +12,7 @@ const ArrowIcon = (props) => (
 );
 
 ArrowIcon.propTypes = {
-  props: PropTypes.any,
+  props: PropTypes.object,
 };
 
 ArrowIcon.defaultProps = {

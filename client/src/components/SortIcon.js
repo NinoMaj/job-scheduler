@@ -12,7 +12,7 @@ const SortIcon = (props) => (
 );
 
 SortIcon.propTypes = {
-  props: PropTypes.any,
+  props: PropTypes.object,
 };
 
 SortIcon.defaultProps = {
