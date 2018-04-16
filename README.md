@@ -28,6 +28,7 @@ Note: App is hosted on free heroku virtual machine that can be affected by cold 
 - [x] DB for data persistence
 - [x] Notification system
 - [x] Start of front-end tests
+- [x] Sorting by date
 - [x] Background color change :)
 - [ ] Error handling
 - [ ] Finish front end test and make backend tests

@@ -5,7 +5,7 @@ import Button from 'material-ui/Button';
 import AddIcon from '@material-ui/icons/Add';
 
 import JobItem from '../components/JobItem';
-import DateIcon from '../components/DateIcon';
+import SortIcon from '../components/SortIcon';
 import ArrowIcon from '../components/ArrowIcon';
 
 const Main = styled.section`
@@ -114,7 +114,7 @@ const Table = ({ jobs, deleteJob, handleClickOpen, handleSortByDate, sortByDateA
     <ButtonsContainer>
       <IconButton>
         <Button onClick={handleSortByDate}>
-          <DateIcon />
+          <SortIcon />
         </Button>
       </IconButton>
       <Button variant="fab" color="secondary" aria-label="add" onClick={handleClickOpen}>
