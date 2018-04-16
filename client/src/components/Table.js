@@ -12,7 +12,7 @@ const Main = styled.section`
   margin: 20px auto 50px;
 
   @media (max-width: 768px) {
-    max-width: 98%;
+    max-width: 100%;
   }
 `;
 
@@ -54,14 +54,19 @@ const TableColumn = styled.div`
   }
 `;
 
+const TableColumnChannel = TableColumn.extend`
+  @media (max-width: 768px) {
+    justify-content: center;
+  }
+`;
+
 const TableColumnStatus = TableColumn.extend`
-  flex-basis: 150px;
+  flex-basis: 100px;
 
   @media (max-width: 768px) {
     flex-basis: auto;
     min-width: 20px;
     width: 30px;
-    text-align: center;
   }
 `;
 
@@ -98,22 +103,22 @@ const Table = ({ jobs, deleteJob, handleClickOpen }) => (
       <TableHead >
         <TableColumn>Message</TableColumn>
         <TableColumn>Date</TableColumn>
-        <TableColumn>Channel</TableColumn>
+        <TableColumnChannel>Channel</TableColumnChannel>
         <TableColumnStatus><StatusText>Status</StatusText></TableColumnStatus>
         <TableColumnAction />
       </TableHead>
       {jobs.length > 0 &&
-        jobs.map(job => (
-          <JobItem
-            key={job._id}
-            id={job._id}
-            message={job.message}
-            date={job.date}
-            channel={job.channel}
-            status={job.status}
-            deleteJob={deleteJob}
-          />))
-      }
+          jobs.map(job => (
+            <JobItem
+              key={job._id}
+              id={job._id}
+              message={job.message}
+              date={job.date}
+              channel={job.channel}
+              status={job.status}
+              deleteJob={deleteJob}
+            />))
+        }
     </TabelContainer>
   </Main>
 );

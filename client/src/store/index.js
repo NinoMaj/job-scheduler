@@ -3,11 +3,9 @@ import { createLogger } from 'redux-logger';
 import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
 import { routerMiddleware } from 'react-router-redux';
 import createHistory from 'history/createBrowserHistory';
-// import axios from 'axios';
 import thunk from 'redux-thunk';
 
 import reducer from '../reducers';
-// import {API_ROOT} from '../constants';
 
 export const history = createHistory();
 
@@ -23,7 +21,6 @@ const getMiddleware = () => {
   // Enable additional logging in non-production environments.
   return applyMiddleware(
     myRouterMiddleware,
-    // thunk.withExtraArgument(axiosInstance),
     thunk,
     createLogger(),
   );

@@ -39,14 +39,19 @@ const JobItemCell = styled.div`
   }
 `;
 
+const JobItemCellChannel = JobItemCell.extend`
+  @media (max-width: 768px) {
+    justify-content: center;
+  }
+`;
+
 const JobItemCellStatus = JobItemCell.extend`
-  flex-basis: 150px;
+  flex-basis: 100px;
 
   @media (max-width: 768px) {
     flex-basis: auto;
     min-width: 20px;
     width: 30px;
-    text-align: center;
   }
 `;
 
@@ -99,7 +104,7 @@ const JobItem = ({
     <JobItemRow>
       <JobItemCell>{message}</JobItemCell>
       <JobItemCell>{moment(date).format('DD MMM YY, HH:mm')}</JobItemCell>
-      <JobItemCell>{channel}</JobItemCell>
+      <JobItemCellChannel>{channel}</JobItemCellChannel>
       <JobItemCellStatus><StatusText>{status}</StatusText></JobItemCellStatus>
       <ActionCell onClick={handleDeleteJob}><StyledRemoveIcon /></ActionCell>
     </JobItemRow>

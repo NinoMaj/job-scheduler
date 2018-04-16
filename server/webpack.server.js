@@ -17,7 +17,7 @@ const config = {
   plugins: [
     new webpack.DefinePlugin({
       MONGODB_URI: JSON.stringify(process.env.MONGODB_URI),
-      SLACK_TOKEN: JSON.stringify(process.env.SLACK_TOKEN),
+      SLACK_WEBHOOK_URL: JSON.stringify(process.env.SLACK_WEBHOOK_URL),
       NODE_ENV: JSON.stringify(process.env.NODE_ENV),
     }),
   ],

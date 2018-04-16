@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 3);
+/******/ 	return __webpack_require__(__webpack_require__.s = 2);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -80,40 +80,27 @@ module.exports = require("express");
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-
-
-module.exports = {
-  API_ROOT: '/api/v1',
-  JOBS_API: '/jobs',
-  SLACK_URL: 'https://hooks.slack.com/services/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'
-};
-
-/***/ }),
-/* 3 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
 /* WEBPACK VAR INJECTION */(function(__dirname) {
 
 // Main starting point of the application
 var express = __webpack_require__(1);
-var http = __webpack_require__(4);
-var path = __webpack_require__(5);
+var http = __webpack_require__(3);
+var path = __webpack_require__(4);
 
 var app = express();
-var morgan = __webpack_require__(6);
-var bodyParser = __webpack_require__(7);
-var expressValidator = __webpack_require__(8);
-var cors = __webpack_require__(9);
+var morgan = __webpack_require__(5);
+var bodyParser = __webpack_require__(6);
+var expressValidator = __webpack_require__(7);
+var cors = __webpack_require__(8);
 var mongoose = __webpack_require__(0);
 
-var jobsRouter = __webpack_require__(10);
+var jobsRouter = __webpack_require__(9);
 
-var _require = __webpack_require__(2),
+var _require = __webpack_require__(15),
     API_ROOT = _require.API_ROOT,
     JOBS_API = _require.JOBS_API;
 
-__webpack_require__(17).config();
+__webpack_require__(16).config();
 
 // DB Setup
 
@@ -131,7 +118,6 @@ var corsOptions = {
   origin: 'http://localhost:4100',
   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
 };
-
 app.use(cors(corsOptions));
 
 // Router handlers
@@ -149,43 +135,43 @@ console.log('Server listening on:', port);
 /* WEBPACK VAR INJECTION */}.call(exports, "/"))
 
 /***/ }),
-/* 4 */
+/* 3 */
 /***/ (function(module, exports) {
 
 module.exports = require("http");
 
 /***/ }),
-/* 5 */
+/* 4 */
 /***/ (function(module, exports) {
 
 module.exports = require("path");
 
 /***/ }),
-/* 6 */
+/* 5 */
 /***/ (function(module, exports) {
 
 module.exports = require("morgan");
 
 /***/ }),
-/* 7 */
+/* 6 */
 /***/ (function(module, exports) {
 
 module.exports = require("body-parser");
 
 /***/ }),
-/* 8 */
+/* 7 */
 /***/ (function(module, exports) {
 
 module.exports = require("express-validator");
 
 /***/ }),
-/* 9 */
+/* 8 */
 /***/ (function(module, exports) {
 
 module.exports = require("cors");
 
 /***/ }),
-/* 10 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -195,10 +181,10 @@ var express = __webpack_require__(1);
 
 var router = express.Router();
 
-var _require = __webpack_require__(11),
+var _require = __webpack_require__(10),
     catchErrors = _require.catchErrors;
 
-var jobsController = __webpack_require__(12);
+var jobsController = __webpack_require__(11);
 
 router.get('/', catchErrors(jobsController.getJobs));
 router.post('/', jobsController.validateJob, catchErrors(jobsController.addJob));
@@ -207,7 +193,7 @@ router.delete('/:id', catchErrors(jobsController.deleteJob));
 module.exports = router;
 
 /***/ }),
-/* 11 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -222,7 +208,7 @@ exports.catchErrors = function (fn) {
 };
 
 /***/ }),
-/* 12 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -230,29 +216,24 @@ exports.catchErrors = function (fn) {
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
-__webpack_require__(13);
+__webpack_require__(12);
 var mongoose = __webpack_require__(0);
-var cron = __webpack_require__(14);
-var axios = __webpack_require__(15);
-
-var _require = __webpack_require__(16),
-    IncomingWebhook = _require.IncomingWebhook;
-
-var _require2 = __webpack_require__(2),
-    SLACK_URL = _require2.SLACK_URL;
+var cron = __webpack_require__(13);
+var axios = __webpack_require__(14);
 
 var Job = mongoose.model('Job');
 
 exports.validateJob = function (req, res, next) {
-  // we can use this methods on req object
-  // due to expressValidator middleware (mounted in index.js)
   req.sanitizeBody('message');
   req.checkBody('message', 'Message must be supplied!').notEmpty();
   req.sanitizeBody('date');
   req.checkBody('date', 'Date must be supplied!').notEmpty();
   req.checkBody('date', 'Expected date!').isDate();
 
-  var errors = req.validationErrors(); // it will gather all error from above and put them in object
+  // Gather all errors from above
+  var errors = req.validationErrors();
+
+  // Check if selected date is in future
   if (req.body.date < Date.now()) {
     errors.push({
       msg: 'Date cant be in the past.',
@@ -263,7 +244,7 @@ exports.validateJob = function (req, res, next) {
     res.status(400).json(errors);
   }
 
-  return next(); // there were no errors
+  return next();
 };
 
 exports.getJobs = function () {
@@ -293,9 +274,10 @@ exports.getJobs = function () {
   };
 }();
 
+// TODO: extract slack integration in seperate service -> services/slack.js
 var sendToSlack = function () {
   var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(message) {
-    var res, webhook;
+    var res;
     return regeneratorRuntime.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
@@ -303,7 +285,7 @@ var sendToSlack = function () {
             _context2.prev = 0;
             _context2.next = 3;
             return axios({
-              url: SLACK_URL,
+              url: process.env.SLACK_WEBHOOK_URL,
               method: 'post',
               header: { 'Content-type': 'application/json' },
               data: { text: message }
@@ -311,36 +293,22 @@ var sendToSlack = function () {
 
           case 3:
             res = _context2.sent;
-            webhook = new IncomingWebhook('https://hooks.slack.com/services/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');
-
-            // Send simple text to the webhook channel
-
-            webhook.send('Hello there', function (err, response) {
-              if (err) {
-                console.log('Error:', err);
-              } else {
-                console.log('Message sent: ', response);
-              }
-            });
-
             return _context2.abrupt('return', res.status);
 
-          case 9:
-            _context2.prev = 9;
+          case 7:
+            _context2.prev = 7;
             _context2.t0 = _context2['catch'](0);
 
             // TODO: handle error
             console.error(_context2.t0);
+            return _context2.abrupt('return', _context2.t0);
 
-          case 12:
-            return _context2.abrupt('return', true);
-
-          case 13:
+          case 11:
           case 'end':
             return _context2.stop();
         }
       }
-    }, _callee2, undefined, [[0, 9]]);
+    }, _callee2, undefined, [[0, 7]]);
   }));
 
   return function sendToSlack(_x3) {
@@ -349,14 +317,14 @@ var sendToSlack = function () {
 }();
 
 var updateStatusInDb = function () {
-  var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(job) {
+  var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(job, newStatus) {
     var updatedJob;
     return regeneratorRuntime.wrap(function _callee3$(_context3) {
       while (1) {
         switch (_context3.prev = _context3.next) {
           case 0:
             _context3.next = 2;
-            return Job.findOneAndUpdate({ _id: job.id }, { $set: { status: 'Sent' } }, {
+            return Job.findOneAndUpdate({ _id: job.id }, { $set: { status: newStatus } }, {
               new: true,
               runValidators: true
             }).exec();
@@ -380,7 +348,7 @@ var updateStatusInDb = function () {
     }, _callee3, undefined);
   }));
 
-  return function updateStatusInDb(_x4) {
+  return function updateStatusInDb(_x4, _x5) {
     return _ref3.apply(this, arguments);
   };
 }();
@@ -400,16 +368,18 @@ exports.addJob = function () {
             cronJob = new cron.CronJob({
               cronTime: new Date(job.date),
               onTick: function onTick() {
-                sendToSlack(job.message);
+                var resStatus = sendToSlack(job.message);
+                if (resStatus === 200) {
+                  updateStatusInDb(job, 'Sent');
+                } else {
+                  updateStatusInDb(job, 'Error');
+                }
                 cronJob.stop();
-              },
-              onComplete: function onComplete() {
-                return updateStatusInDb(job);
               },
               start: true,
               timeZone: 'Europe/Zagreb'
             });
-            return _context4.abrupt('return', res.status(200).send(job));
+            return _context4.abrupt('return', res.status(201).send(job));
 
           case 5:
           case 'end':
@@ -419,7 +389,7 @@ exports.addJob = function () {
     }, _callee4, undefined);
   }));
 
-  return function (_x5, _x6) {
+  return function (_x6, _x7) {
     return _ref4.apply(this, arguments);
   };
 }();
@@ -446,13 +416,13 @@ exports.deleteJob = function () {
     }, _callee5, undefined);
   }));
 
-  return function (_x7, _x8) {
+  return function (_x8, _x9) {
     return _ref5.apply(this, arguments);
   };
 }();
 
 /***/ }),
-/* 13 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -466,7 +436,7 @@ var jobSchema = new mongoose.Schema({
   message: {
     type: String,
     trim: true,
-    required: 'Pease enter a jobs message!'
+    required: 'Pease enter a job\'s message!'
   },
   channel: {
     type: String
@@ -483,51 +453,36 @@ var jobSchema = new mongoose.Schema({
     type: Date,
     default: Date.now
   }
-  // author: {
-  //   type: mongoose.Schema.ObjectId,
-  //   ref: 'User',
-  //   required: 'You must supply an author',
-  // }
 });
-
-// storeSchema.pre('save', async function(next) {
-//   if (!this.isModified('name')) {
-//     next();
-//     return;
-//   }
-//   this.slug = slug(this.name);
-
-//   const slugReqEx = new RegExp(`^(${this.slug})((-[0-9]*$)?)$`, 'i');
-//   const storesWithSlug = await this.constructor.find({ slug: slugRegEx });
-//   if (storesWithSlug.length) {
-//     this.slug = `${this.slug}-${storeWithSlug.length + 1}`;
-//   }
-
-//   next();
-// })
 
 module.exports = mongoose.model('Job', jobSchema);
 
 /***/ }),
-/* 14 */
+/* 13 */
 /***/ (function(module, exports) {
 
 module.exports = require("cron");
 
 /***/ }),
-/* 15 */
+/* 14 */
 /***/ (function(module, exports) {
 
 module.exports = require("axios");
 
 /***/ }),
-/* 16 */
-/***/ (function(module, exports) {
+/* 15 */
+/***/ (function(module, exports, __webpack_require__) {
 
-module.exports = require("@slack/client");
+"use strict";
+
+
+module.exports = {
+  API_ROOT: '/api/v1',
+  JOBS_API: '/jobs'
+};
 
 /***/ }),
-/* 17 */
+/* 16 */
 /***/ (function(module, exports) {
 
 module.exports = require("dotenv");

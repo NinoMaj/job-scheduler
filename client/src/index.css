@@ -8,10 +8,13 @@ body {
   padding: 0;
   font-family: Roboto, Helvetica, sans-serif;
   font-size: 16px;
-  background: linear-gradient(90deg,#d896ff, #3d49f3);
   background: linear-gradient(90deg,#6d78ff, #00ffb8);
 }
 
 *, *:before, *:after {
   box-sizing: inherit;
+}
+
+.bodyBackgroundGray {
+  background: #CCCCCC;
 }

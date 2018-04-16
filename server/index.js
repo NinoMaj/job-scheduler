@@ -11,7 +11,7 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 
 const jobsRouter = require('./routers/jobsRouter');
-const { API_ROOT, JOBS_API } = require('./constants');
+const { API_ROOT, JOBS_API } = require('./constants/api');
 
 require('dotenv').config();
 
@@ -31,7 +31,6 @@ const corsOptions = {
   origin: 'http://localhost:4100',
   optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
 };
-
 app.use(cors(corsOptions));
 
 // Router handlers

@@ -22,6 +22,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
+    // TODO: imeplement auth
     const token = window.localStorage.getItem('jwt');
     this.props.onLoad(token);
   }

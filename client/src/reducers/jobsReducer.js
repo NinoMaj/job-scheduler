@@ -4,13 +4,13 @@ import {
   ADD_JOB_SUCCESS,
   DELETE_JOB_SUCCESS,
   JOBS_FAILURE,
-  REMOVE_ERRORS,
+  REMOVE_ERROR,
 } from '../actions/jobsActions';
 
 const initialState = {
   loading: false,
   jobsList: [],
-  errors: []
+  errors: [],
 };
 
 const jobsReducer = (state = initialState, action) => {
@@ -41,8 +41,8 @@ const jobsReducer = (state = initialState, action) => {
       );
     }
     case JOBS_FAILURE:
-      return Object.assign({}, state, { errors: [...action.payload], loading: false });
-    case REMOVE_ERRORS:
+      return Object.assign({}, state, { errors: [...state.errors, action.payload], loading: false });
+    case REMOVE_ERROR:
       return Object.assign({}, state, { errors: state.errors.slice(1) });
     default:
       return state;

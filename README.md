@@ -1,4 +1,4 @@
-## Table of Contents
+## Table of Content
 
 - [General](#general)
 - [Todo](#Todo)
@@ -7,22 +7,19 @@
   - [npm test](#npm-test)
   - [npm run build](#npm-run-build)
   - [npm run eject](#npm-run-eject)
-
-TODO:
-  [] handle error from validators
-  [] impove validation https://github.com/ctavan/express-validator#schema-validation schema
+- [Env setup](#env-setup)
 
 ## General
 
-Schedule jobs that will be posted on slack channel.<br>
-App can be found here <br>
-Note: App is hosted on free now.js virtual machine which is impacted be cold start problem.<br>
-Join slack workspace js-js to see jobs scheduled from the app.<br>
+This is Schedule Jobs app that allows users to add, remove and preview scheduled messages on slack channel.  
+App can be found here [https://shrouded-ocean-55728.herokuapp.com/](https://shrouded-ocean-55728.herokuapp.com/)  
+Join slack workspace js-js-bot.slack.com to see jobs scheduled from the app.  
+Note: App is hosted on free heroku virtual machine that can be affected by cold start problem.  
 
 ## Todo
 - [x] App scaffold
-- [x] Tabel with four columns (message, channel, time, status)
-- [x] Form for scheduling new jobs
+- [x] Table with four columns (message, channel, time, status)
+- [x] Form for scheduling new jobs (message and time)
 - [x] Possibility to delete jobs
 - [x] Backend to server client app
 - [x] API service for jobs handling
@@ -30,12 +27,16 @@ Join slack workspace js-js to see jobs scheduled from the app.<br>
 - [x] Sending jobs to slack and updating jobs status
 - [x] DB for data persistence
 - [x] Notification system
-- [x] Basic tests
-- [ ] Background change
+- [x] Start of front-end tests
+- [x] Background color change :)
 - [ ] Error handling
-- [ ] More tests
+- [ ] Finish front end test and make backend tests
 - [ ] More robuts webpack config
-- [ ] Better client notifications system (errors..)
+- [ ] Full slack integration
+= [ ] Edit jobs
+- [ ] Enhance client notifications system (errors..)
+- [ ] Use constants in CSS, for message... 
+
 
 ## Available Scripts
 
@@ -53,5 +54,10 @@ Server is started on [http://localhost:3001](http://localhost:3001) and it will 
 ### `npm test` / `yarn test`
 
 Launches the test runner in the interactive watch mode.<br>
+
+
+## Env setup
+
+To run app locally in root folder create .env file with tokens for MONGODB_URI and SLACK_WEBHOOK_URL keys.
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).

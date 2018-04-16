@@ -6,7 +6,7 @@ const jobSchema = new mongoose.Schema({
   message: {
     type: String,
     trim: true,
-    required: 'Pease enter a jobs message!',
+    required: 'Pease enter a job\'s message!',
   },
   channel: {
     type: String,
@@ -23,28 +23,6 @@ const jobSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-  // author: {
-  //   type: mongoose.Schema.ObjectId,
-  //   ref: 'User',
-  //   required: 'You must supply an author',
-  // }
 });
-
-
-// storeSchema.pre('save', async function(next) {
-//   if (!this.isModified('name')) {
-//     next();
-//     return;
-//   }
-//   this.slug = slug(this.name);
-
-//   const slugReqEx = new RegExp(`^(${this.slug})((-[0-9]*$)?)$`, 'i');
-//   const storesWithSlug = await this.constructor.find({ slug: slugRegEx });
-//   if (storesWithSlug.length) {
-//     this.slug = `${this.slug}-${storeWithSlug.length + 1}`;
-//   }
-
-//   next();
-// })
 
 module.exports = mongoose.model('Job', jobSchema);

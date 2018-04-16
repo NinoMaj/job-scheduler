@@ -10,6 +10,7 @@ const rotate360 = keyframes`
     transform: rotate(360deg);
   }
 `;
+
 const Donut = styled.div`
   position: fixed;
   top: calc(50% - 15px);

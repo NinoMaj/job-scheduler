@@ -1,3 +1,4 @@
 module.exports = {
-  AUTH: true,
+  AUTH: false,
+  BACKGROUND_CHANGER: true,
 };

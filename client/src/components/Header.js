@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
+import BackgroundChanger from './BackgroundChanger';
 import featureFlags from '../config/featureFlags';
 
 const Main = styled.nav`
@@ -91,7 +92,7 @@ const LoggedInView = ({ currentUser }) => {
 const Header = ({ currentUser, appName }) => (
   <Main>
     <LeftNav>
-      <Logo to="/">
+      <Logo to="/" data-testid="logo">
         {appName}
       </Logo>
     </LeftNav>
@@ -101,6 +102,11 @@ const Header = ({ currentUser, appName }) => (
           <LoggedOutView currentUser={currentUser} />
           <LoggedInView currentUser={currentUser} />
         </Fragment>
+      ) : (
+        null
+      )}
+      {featureFlags.BACKGROUND_CHANGER ? (
+        <BackgroundChanger />
       ) : (
         null
       )}

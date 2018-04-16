@@ -6,7 +6,7 @@ import Dialog, { DialogTitle } from 'material-ui/Dialog';
 import AddJob from '../components/AddJob';
 import Table from '../components/Table';
 import Loading from '../components/Loading';
-import { getJobs, addJob, deleteJob, removeErrors } from '../actions/jobsActions';
+import { getJobs, addJob, deleteJob, removeError } from '../actions/jobsActions';
 import { showNotification } from '../actions/uiActions';
 
 class Home extends React.Component {
@@ -28,7 +28,7 @@ class Home extends React.Component {
     // Show notification if there is a new error
     if (this.props.jobsErrors && this.props.jobsErrors.length) {
       this.props.showNotification({ message: this.props.jobsErrors[0] });
-      this.props.removeErrors();
+      this.props.removeError();
     }
 
     return true;
@@ -82,7 +82,7 @@ Home.propTypes = {
   addJob: PropTypes.func.isRequired,
   deleteJob: PropTypes.func.isRequired,
   showNotification: PropTypes.func.isRequired,
-  removeErrors: PropTypes.func.isRequired,
+  removeError: PropTypes.func.isRequired,
 };
 
 Home.defaultProps = {
@@ -96,5 +96,5 @@ export default connect(mapStateToProps, {
   addJob,
   deleteJob,
   showNotification,
-  removeErrors,
+  removeError,
 })(Home);

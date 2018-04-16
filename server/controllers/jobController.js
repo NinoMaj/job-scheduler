@@ -2,22 +2,20 @@ require('../models/job');
 const mongoose = require('mongoose');
 const cron = require('cron');
 const axios = require('axios');
-const { IncomingWebhook } = require('@slack/client');
-
-const { SLACK_URL } = require('../constants');
 
 const Job = mongoose.model('Job');
 
 exports.validateJob = (req, res, next) => {
-  // we can use this methods on req object
-  // due to expressValidator middleware (mounted in index.js)
   req.sanitizeBody('message');
   req.checkBody('message', 'Message must be supplied!').notEmpty();
   req.sanitizeBody('date');
   req.checkBody('date', 'Date must be supplied!').notEmpty();
   req.checkBody('date', 'Expected date!').isDate();
 
-  const errors = req.validationErrors(); // it will gather all error from above and put them in object
+  // Gather all errors from above
+  const errors = req.validationErrors();
+
+  // Check if selected date is in future
   if (req.body.date < Date.now()) {
     errors.push({
       msg: 'Date cant be in the past.',
@@ -28,7 +26,7 @@ exports.validateJob = (req, res, next) => {
     res.status(400).json(errors);
   }
 
-  return next(); // there were no errors
+  return next();
 };
 
 exports.getJobs = async (req, res) => {
@@ -37,39 +35,26 @@ exports.getJobs = async (req, res) => {
   return res.status(200).send(jobs);
 };
 
+// TODO: extract slack integration in seperate service -> services/slack.js
 const sendToSlack = async (message) => {
   try {
     const res = await axios({
-      url: SLACK_URL,
+      url: process.env.SLACK_WEBHOOK_URL,
       method: 'post',
       header: { 'Content-type': 'application/json' },
       data: { text: message },
     });
 
-    const webhook = new IncomingWebhook('https://hooks.slack.com/services/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');
-
-    // Send simple text to the webhook channel
-    webhook.send('Hello there', (err, response) => {
-      if (err) {
-        console.log('Error:', err);
-      } else {
-        console.log('Message sent: ', response);
-      }
-    });
-
     return res.status;
-
-
   } catch (e) {
     // TODO: handle error
     console.error(e);
+    return e;
   }
-
-  return true;
 };
 
-const updateStatusInDb = async (job) => {
-  const updatedJob = await Job.findOneAndUpdate({ _id: job.id }, { $set: { status: 'Sent' } }, {
+const updateStatusInDb = async (job, newStatus) => {
+  const updatedJob = await Job.findOneAndUpdate({ _id: job.id }, { $set: { status: newStatus } }, {
     new: true,
     runValidators: true,
   }).exec();
@@ -87,15 +72,19 @@ exports.addJob = async (req, res) => {
   const cronJob = new cron.CronJob({
     cronTime: new Date(job.date),
     onTick: () => {
-      sendToSlack(job.message);
+      const resStatus = sendToSlack(job.message);
+      if (resStatus === 200) {
+        updateStatusInDb(job, 'Sent');
+      } else {
+        updateStatusInDb(job, 'Error');
+      }
       cronJob.stop();
     },
-    onComplete: () => updateStatusInDb(job),
     start: true,
     timeZone: 'Europe/Zagreb',
   });
 
-  return res.status(200).send(job);
+  return res.status(201).send(job);
 };
 
 exports.deleteJob = async (req, res) => {

@@ -1,11 +1,11 @@
 {
-  "name": "infobip-app-client",
+  "name": "job-scheduler-client",
   "version": "1.0.0",
-  "private": true,
+  "author": "NinoMaj",
+  "license": "MIT",
   "devDependencies": {
     "cross-env": "5.1.4",
     "enzyme": "3.3.0",
-    "enzyme-adapter-react-16": "1.1.1",
     "react-scripts": "1.1.4"
   },
   "dependencies": {
@@ -28,9 +28,7 @@
     "redux-devtools-extension": "2.13.2",
     "redux-logger": "3.0.6",
     "redux-thunk": "2.2.0",
-    "styled-components": "3.2.5",
-    "superagent": "^3.8.2",
-    "superagent-promise": "^1.1.0"
+    "styled-components": "3.2.5"
   },
   "scripts": {
     "start": "cross-env PORT=4100 react-scripts start",

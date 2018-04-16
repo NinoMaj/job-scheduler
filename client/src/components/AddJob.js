@@ -98,7 +98,9 @@ class AddJob extends React.Component {
             timeCaption="Time"
             dateFormat="LLL"
             minDate={moment()}
-            minTime={this.state.date && this.state.date.isBefore(moment()) ? moment() : moment().hours(0).minutes(0)}
+            minTime={this.state.date && this.state.date.isBefore(moment().set({ hour: 23, minute: 59 })) ?
+              moment() :
+              moment().hours(0).minutes(0)}
             maxTime={moment().hours(23).minutes(59)}
             inline
           />
@@ -109,7 +111,7 @@ class AddJob extends React.Component {
               variant="raised"
               size="large"
               aria-label="add"
-              disabled={this.state.message === '' || !this.state.date}
+              disabled={this.state.message === '' || !this.state.date || this.state.date.isBefore(moment())}
               onClick={this.handleSubmit}
             >
               <SaveText>SAVE</SaveText>
@@ -125,9 +127,6 @@ class AddJob extends React.Component {
 AddJob.propTypes = {
   closeAfterSaving: PropTypes.func.isRequired,
   addJob: PropTypes.func.isRequired,
-};
-
-AddJob.defaultProps = {
 };
 
 export default AddJob;

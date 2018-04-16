@@ -1,8 +1,9 @@
 {
-  "name": "task-schedluer",
+  "name": "job-scheduler",
   "version": "1.0.0",
-  "main": "index.js",
+  "author": "NinoMaj",
   "license": "MIT",
+  "main": "index.js",
   "scripts": {
     "start": "node server/index.js",
     "dev:start-client": "cd client && npm start",
@@ -34,8 +35,7 @@
     "alias": "js=js",
     "name": "js-js",
     "env": {
-      "NODE_ENV": "production",
-      "MONGODB_URI": "mongodb://NinoMaj:infobip1234@ds139459.mlab.com:39459/job-schedluer"
+      "NODE_ENV": "production"
     }
   }
 }

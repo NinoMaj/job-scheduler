@@ -1,16 +1,15 @@
 {
-  "name": "server",
+  "name": "job-scheduler-server",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "echo \"TODO: write server tests\"",
     "dev": "nodemon index.js"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "NinoMaj",
+  "license": "MIT",
   "dependencies": {
-    "@slack/client": "4.1.0",
     "axios": "0.18.0",
     "body-parser": "^1.15.0",
     "cors": "2.8.4",

@@ -8,6 +8,7 @@ const Notification = ({ notifications, onClose }) => {
   function handleClose(event, reason) {
     onClose(event, reason, notifications[0].id);
   }
+
   return (
     <div>
       <Snackbar
